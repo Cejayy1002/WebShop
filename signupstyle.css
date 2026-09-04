@@ -14,8 +14,8 @@ body {
     min-height: 100vh;
 }
 
-/* Login Box */
-.login-container {
+/* Signup Box */
+.signup-container {
     background-color: #1b222c;
     width: 350px;
     padding: 35px;
@@ -25,7 +25,7 @@ body {
 }
 
 /* Title */
-.login-container h1 {
+.signup-container h1 {
     color: #fff;
     text-align: center;
     margin-bottom: 30px;
@@ -33,7 +33,7 @@ body {
 }
 
 /* Labels */
-.login-container label {
+.signup-container label {
     display: block;
     color: #fff;
     margin-bottom: 8px;
@@ -41,7 +41,7 @@ body {
 }
 
 /* Inputs */
-.login-container input {
+.signup-container input {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -56,18 +56,18 @@ body {
     transition: 0.3s;
 }
 
-/* Input focus */
-.login-container input:focus {
-    border-color: #fff;
-}
-
 /* Input hover */
-.login-container input:hover {
+.signup-container input:hover {
     border-color: #fff;
 }
 
-/* Login Button */
-.login-container button {
+/* Input focus */
+.signup-container input:focus {
+    border-color: #fff;
+}
+
+/* Signup Button */
+.signup-container button {
     width: 100%;
     padding: 12px;
 
@@ -85,27 +85,26 @@ body {
 }
 
 /* Button hover */
-.login-container button:hover {
+.signup-container button:hover {
     background-color: #12171e;
     color: #fff;
     border: 1px solid #fff;
 }
 
 /* Text */
-.login-container p {
+.signup-container p {
     text-align: center;
     margin-top: 20px;
     color: #b0b3c1;
 }
 
 /* Links */
-.login-container a {
+.signup-container a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
 }
 
-.login-container a:hover {
+.signup-container a:hover {
     text-decoration: underline;
 }
-
