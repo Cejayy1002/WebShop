@@ -8,11 +8,15 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="auth-page login-page">
 
     <div class="login-container">
+        <div class="auth-brand" aria-label="Personal Vault">
+            <span class="auth-brand-icon"><i class="bx bx-lock-alt"></i></span>
+            <span>Personal Vault</span>
+        </div>
         <h1>Login</h1>
-        <p>Sign in to start your session</p>
+        <p class="auth-subtitle">Sign in securely to access your personal vault.</p>
 
         <form id="loginForm">
 
@@ -23,6 +27,7 @@
                     id="username" 
                     name="username" 
                     placeholder="Enter your email" 
+                    autocomplete="username"
                     required>
             </div>
 
@@ -34,16 +39,19 @@
                     id="password" 
                     name="password" 
                     placeholder="Enter your password" 
+                    autocomplete="current-password"
                     required>
                     <button class="password-toggle" type="button" data-target="password" aria-label="Show password"><i class="bx bx-show"></i></button>
                 </div>
             </div>
 
-            <p id="message"></p>
-            <p id="errorMessage"></p>
+            <div class="auth-status" aria-live="polite">
+                <p id="message"></p>
+                <p id="errorMessage"></p>
+            </div>
 
-            <button type="submit">Login</button>
-            <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            <button class="auth-submit" type="submit"><span>Login</span><i class="bx bx-arrow-to-right"></i></button>
+            <p class="auth-switch">Don't have an account? <a href="signup.html">Create one</a></p>
 
         </form>
     </div>
