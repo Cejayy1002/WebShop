@@ -1,0 +1,17 @@
+[
+  {
+    "email": "check@example.com",
+    "salt": "e652214c582ee95956e0641054c7a6c1",
+    "passwordHash": "1a14b7d5e928ed3597c09d4831beb9a18f42865fb747de5d0eb09e936e90393621ac85ef0b0442c279b0ee9de8b2d9aeb68590c2e0302fdf33a07d248a7a1c8d"
+  },
+  {
+    "email": "final-check@example.com",
+    "salt": "619808130a93fb10939010082ffdc416",
+    "passwordHash": "ca34a97cc484ee3e408fc3846996be0425f2800a7d64094f225d6a4c0632f74a7d93fbcf8fc57c8aab8af730bd0aac44c9072eabca83bf112ebb4d36a4b3275d"
+  },
+  {
+    "email": "cadungogcjay8@gmail.com",
+    "salt": "29e3c60e24e03f6f751da552b45af21b",
+    "passwordHash": "267fff9755bf1cb5f2162d2480850737bf54d8dd5405f0e541d6dd3ea80a0f055621307036080aa2ace6eb7e2e1af969fb598e5418c4665ba7094549cd4c16e6"
+  }
+]

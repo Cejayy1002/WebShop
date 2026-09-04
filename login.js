@@ -17,7 +17,7 @@ document.querySelectorAll('.password-toggle').forEach(function (button) {
 loginForm.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const email = usernameInput.value;
+    const email = usernameInput.value.trim().toLowerCase();
     const password = passwordInput.value;
 
     // ADMIN LOGIN
@@ -36,20 +36,25 @@ loginForm.addEventListener('submit', async function(event) {
     }
 
     if (window.location.protocol !== 'file:') {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        const result = await response.json();
-        if (!response.ok) {
-            errorMessage.textContent = result.error;
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const result = await response.json();
+            if (!response.ok) {
+                errorMessage.textContent = result.error || 'Invalid email or password.';
+                return;
+            }
+            localStorage.setItem('currentUser', result.email);
+            localStorage.setItem('userType', 'user');
+            message.textContent = 'Login successful!';
+            setTimeout(function() { window.location.href = 'home.html'; }, 500);
+        } catch {
+            errorMessage.textContent = 'Cannot reach the Personal Vault server. Start server.js and try again.';
             return;
         }
-        localStorage.setItem('currentUser', result.email);
-        localStorage.setItem('userType', 'user');
-        message.textContent = 'Login successful!';
-        setTimeout(function() { window.location.href = 'home.html'; }, 500);
         return;
     }
 

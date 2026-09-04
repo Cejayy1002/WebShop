@@ -13,7 +13,7 @@ document.querySelectorAll('.password-toggle').forEach(function (button) {
 signupForm.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const email = document.getElementById('newEmail').value;
+    const email = document.getElementById('newEmail').value.trim().toLowerCase();
     const password = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const message = document.getElementById('message');
@@ -25,14 +25,19 @@ signupForm.addEventListener('submit', async function(event) {
     }
 
     if (window.location.protocol !== 'file:') {
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        const result = await response.json();
-        if (!response.ok) {
-            message.textContent = result.error;
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const result = await response.json();
+            if (!response.ok) {
+                message.textContent = result.error || 'Unable to create the account.';
+                return;
+            }
+        } catch {
+            message.textContent = 'Cannot reach the Personal Vault server. Start server.js and try again.';
             return;
         }
         message.textContent = 'Account created successfully!';

@@ -55,10 +55,17 @@ const server = http.createServer((request, response) => {
         let body = '';
         request.on('data', chunk => { body += chunk; });
         request.on('end', () => {
-            const { email, password } = JSON.parse(body);
+            let payload;
+            try {
+                payload = JSON.parse(body);
+            } catch {
+                sendJson(response, 400, { error: 'Invalid request.' });
+                return;
+            }
+            const { email, password } = payload;
             const normalizedEmail = String(email || '').trim().toLowerCase();
             const users = readUsers();
-            if (!normalizedEmail || !password || users.some(user => user.email === normalizedEmail)) {
+            if (!normalizedEmail || normalizedEmail === 'admin@gmail.com' || !password || users.some(user => user.email === normalizedEmail)) {
                 sendJson(response, 409, { error: 'This email is already registered or invalid.' });
                 return;
             }
@@ -74,7 +81,14 @@ const server = http.createServer((request, response) => {
         let body = '';
         request.on('data', chunk => { body += chunk; });
         request.on('end', () => {
-            const { email, password } = JSON.parse(body);
+            let payload;
+            try {
+                payload = JSON.parse(body);
+            } catch {
+                sendJson(response, 400, { error: 'Invalid request.' });
+                return;
+            }
+            const { email, password } = payload;
             const user = readUsers().find(item => item.email === String(email || '').trim().toLowerCase());
             const valid = user && hashPassword(password, user.salt) === user.passwordHash;
             sendJson(response, valid ? 200 : 401, valid ? { ok: true, email: user.email } : { error: 'Invalid email or password.' });
