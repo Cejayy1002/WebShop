@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Files</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="homestyle.css">
+</head>
+<body>
+    <aside id="sidebar"></aside>
+    <main class="main-content dashboard-content">
+        <div class="dashboard-header"><div><p class="eyebrow">DOCUMENTS</p><h1>Files</h1><p class="welcome-text">Upload and manage your saved files.</p></div><button class="action-button" id="showProductForm" type="button"><i class="bx bx-plus"></i> Add file</button></div>
+        <section class="panel form-panel" id="productFormPanel" hidden>
+            <div class="panel-heading"><div><h2>Add a file</h2><p>Selected files are saved in this browser.</p></div></div>
+            <form id="productForm" class="inline-form"><input id="productName" placeholder="File name (optional)" aria-label="File name"><input id="productFile" required type="file" aria-label="Choose a file"><button class="action-button" type="submit">Save file</button></form>
+            <p id="productMessage" role="status"></p>
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>Saved files</h2><p id="productCount">0 files</p></div></div><div id="productList" class="data-list"><p class="empty-state">No files saved yet.</p></div></section>
+    </main>
+    <script src="sidebar.js"></script>
+    <script src="logout.js"></script>
+    <script src="important-files.js"></script>
+</body>
+</html>

@@ -9,10 +9,14 @@
     sidebar.innerHTML = `
         <div class="top">
             <div class="logo">
-                <i class="bx bxl-codepen"></i>
-                <span>Shoppex</span>
+                <i class="bx bx-lock-alt"></i>
+                <span>Personal Vault</span>
             </div>
             <i class="bx bx-menu" id="btn" aria-label="Toggle sidebar" role="button" tabindex="0"></i>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+                <i class="bx bx-moon"></i>
+                <span class="nav-item">Dark mode</span>
+            </button>
             <div class="user">
                 <img src="user-img.jpg" alt="Cadungog C." class="user-img">
                 <div>
@@ -29,32 +33,32 @@
                     <span class="tooltip">Home</span>
                 </li>
                 <li>
-                    <a href="dashboard.html" data-page="dashboard.html">
-                        <i class="bx bxs-grid-alt"></i>
-                        <span class="nav-item">Dashboard</span>
+                    <a href="accounts.html" data-page="accounts.html">
+                        <i class="bx bx-key"></i>
+                        <span class="nav-item">Accounts</span>
                     </a>
-                    <span class="tooltip">Dashboard</span>
+                    <span class="tooltip">Accounts</span>
                 </li>
                 <li>
-                    <a href="products.html" data-page="products.html">
-                        <i class="bx bxs-shopping-bag"></i>
-                        <span class="nav-item">Products</span>
+                    <a href="important-files.html" data-page="important-files.html">
+                        <i class="bx bx-folder"></i>
+                        <span class="nav-item">Files</span>
                     </a>
-                    <span class="tooltip">Products</span>
+                    <span class="tooltip">Files</span>
                 </li>
                 <li>
-                    <a href="categories.html" data-page="categories.html">
-                        <i class="bx bx-list-check"></i>
-                        <span class="nav-item">Categories</span>
+                    <a href="notes.html" data-page="notes.html">
+                        <i class="bx bx-note"></i>
+                        <span class="nav-item">Notes</span>
                     </a>
-                    <span class="tooltip">Categories</span>
+                    <span class="tooltip">Notes</span>
                 </li>
                 <li>
-                    <a href="settings.html" data-page="settings.html">
-                        <i class="bx bx-cog"></i>
-                        <span class="nav-item">Settings</span>
+                    <a href="savings.html" data-page="savings.html">
+                        <i class="bx bx-pie-chart-alt-2"></i>
+                        <span class="nav-item">Savings</span>
                     </a>
-                    <span class="tooltip">Settings</span>
+                    <span class="tooltip">Savings</span>
                 </li>
                 <li>
                     <a href="#" id="logoutBtn">
@@ -83,5 +87,24 @@
     if (activeLink) {
         activeLink.classList.add('active');
     }
+
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+
+    function updateThemeToggle() {
+        const darkMode = document.body.classList.contains('dark-mode');
+        themeToggle.innerHTML = `<i class="bx ${darkMode ? 'bx-sun' : 'bx-moon'}"></i><span class="nav-item">${darkMode ? 'Light mode' : 'Dark mode'}</span>`;
+        themeToggle.setAttribute('aria-label', darkMode ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        updateThemeToggle();
+    });
+    updateThemeToggle();
 
 })();

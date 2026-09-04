@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="homestyle.css">
+</head>
+<body>
+    <aside id="sidebar"></aside>
+    <main class="main-content dashboard-content">
+        <div class="dashboard-header"><div><p class="eyebrow">PERSONAL ORGANIZER</p><h1>Notes</h1><p class="welcome-text">Write down ideas, reminders, and important details.</p></div></div>
+        <form id="personalInfoForm" class="panel personal-info-form">
+            <div class="panel-heading"><div><h2>Add a note</h2><p>Your notes are saved in this browser.</p></div><i class="bx bx-note panel-icon"></i></div>
+            <div class="personal-info-grid">
+                <label>Note title<input id="fullName" type="text" required placeholder="Enter a note title"></label>
+                <label>Category<input id="personalEmail" type="text" placeholder="e.g. Ideas, Reminders"></label>
+                <label class="full-field">Note content<textarea id="aboutMe" rows="7" required placeholder="Write your note here"></textarea></label>
+            </div>
+            <div class="settings-actions"><span id="personalInfoMessage" role="status"></span><button class="action-button" type="submit"><i class="bx bx-save"></i> Save note</button></div>
+        </form>
+        <section class="panel"><div class="panel-heading"><div><h2>Saved notes</h2><p id="notesCount">0 notes</p></div></div><div id="notesList" class="data-list"><p class="empty-state">No notes yet.</p></div></section>
+    </main>
+    <script src="sidebar.js"></script>
+    <script src="logout.js"></script>
+    <script src="notes.js"></script>
+</body>
+</html>

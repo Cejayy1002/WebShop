@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="homestyle.css">
+</head>
+<body>
+    <aside id="sidebar"></aside>
+    <main class="main-content dashboard-content settings-content">
+        <div class="dashboard-header">
+            <div><p class="eyebrow">FINANCIAL GOALS</p><h1>Savings</h1><p class="welcome-text">Track your savings goals and progress.</p></div>
+        </div>
+        <form id="settingsForm" class="settings-grid">
+            <section class="panel settings-card">
+                <div class="panel-heading"><div><h2>Savings goal</h2><p>Set the amount you want to save.</p></div><i class="bx bx-target-lock panel-icon"></i></div>
+                <label for="adminName">Goal name</label>
+                <input id="adminName" type="text" value="My savings goal">
+                <label for="adminEmail">Target amount</label>
+                <input id="adminEmail" type="number" min="0" step="0.01" value="0">
+                <label for="storeName">Current savings</label>
+                <input id="storeName" type="number" min="0" step="0.01" value="0">
+            </section>
+            <section class="panel settings-card">
+                <div class="panel-heading"><div><h2>Savings notes</h2><p>Add a reminder for your goal.</p></div><i class="bx bx-note panel-icon"></i></div>
+                <label for="newPassword">Savings note</label>
+                <input id="newPassword" type="text" placeholder="e.g. Save every payday">
+                <label for="confirmPassword">Deadline</label>
+                <input id="confirmPassword" type="date">
+                <label class="checkbox-row"><input id="orderNotifications" type="checkbox" checked> Remind me about my goal</label>
+                <label class="checkbox-row"><input id="stockNotifications" type="checkbox"> Show progress updates</label>
+            </section>
+            <div class="settings-actions"><span id="settingsMessage" role="status"></span><button class="action-button" type="submit">Save savings</button></div>
+        </form>
+    </main>
+    <script src="sidebar.js"></script>
+    <script src="logout.js"></script>
+    <script src="savings.js"></script>
+</body>
+</html>

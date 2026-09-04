@@ -6,7 +6,7 @@ signupForm.addEventListener('submit', function(event) {
     const email = document.getElementById('newEmail').value;
     const password = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const message = document.getElementById('signupMessage');
+    const message = document.getElementById('message');
 
     // Check if passwords match
     if (password !== confirmPassword) {

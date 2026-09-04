@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Manager</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="homestyle.css">
+</head>
+<body>
+    
+    <aside id="sidebar"></aside>
+    <main class="main-content dashboard-content">
+        <div class="dashboard-header">
+            <div>
+                <p class="eyebrow">PASSWORD VAULT</p>
+                <h1>Account manager</h1>
+                <p class="welcome-text">Keep your account usernames and passwords organized.</p>
+            </div>
+            <button class="action-button" id="addSocialButton" type="button">
+                <i class="bx bx-plus"></i>
+                Add account
+            </button>
+        </div>
+        <section class="panel form-panel" id="socialAccountFormPanel" hidden>
+            <div class="panel-heading"><div><h2 id="accountFormTitle">Add an account</h2><p id="accountFormDescription">Save a service, username, and password.</p></div></div>
+            <form id="socialAccountForm" class="inline-form">
+                <input id="accountEditIndex" type="hidden" value="">
+                <input id="socialPlatform" required placeholder="Service (e.g. Gmail)" aria-label="Service name">
+                <input id="socialHandle" required placeholder="Username or email" aria-label="Username or email">
+                <div class="password-field">
+                    <input id="accountPassword" required type="password" placeholder="Password" aria-label="Password">
+                    <button class="text-button password-toggle icon-button" type="button" data-target="accountPassword" aria-label="Show password"><i class="bx bx-show"></i></button>
+                </div>
+                <input id="accountUrl" type="url" placeholder="Website URL (optional)" aria-label="Website URL">
+                <input id="accountLogo" type="url" placeholder="Logo image URL (optional)" aria-label="Logo image URL">
+                <button class="action-button" id="accountSubmitButton" type="submit">Save account</button>
+                <button class="text-button cancel-edit" id="cancelEditButton" type="button" hidden>Cancel</button>
+            </form>
+        </section>
+
+        <section class="stats-grid" aria-label="Account statistics">
+            <article class="stat-card">
+                <div class="stat-icon sales-icon"><i class="bx bx-key"></i></div>
+                <div><p>Saved accounts</p><h2 id="accountTotal">0</h2><span class="neutral">Stored locally</span></div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-icon orders-icon"><i class="bx bx-user"></i></div>
+                <div><p>Usernames</p><h2 id="usernameTotal">0</h2><span class="neutral">Saved logins</span></div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-icon products-icon"><i class="bx bx-lock-alt"></i></div>
+                <div><p>Passwords</p><h2 id="passwordTotal">0</h2><span class="neutral">Hidden by default</span></div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-icon customers-icon"><i class="bx bx-shield"></i></div>
+                <div><p>Security</p><h2>Local</h2><span class="neutral">Use a secure device</span></div>
+            </article>
+        </section>
+
+        <section class="dashboard-panels account-panels">
+            <article class="panel orders-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2>Saved accounts</h2>
+                        <p>Your login services</p>
+                    </div>
+                </div>
+                <div class="order-list" id="socialAccountsList">
+                    <p class="empty-state">No accounts saved yet.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+<script src="sidebar.js"></script>
+<script src="logout.js"></script>
+<script src="accounts.js"></script>
+</html>
