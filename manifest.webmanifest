@@ -1,0 +1,9 @@
+{
+  "name": "Personal Vault",
+  "short_name": "Vault",
+  "start_url": "./login.html",
+  "display": "standalone",
+  "background_color": "#edf3ff",
+  "theme_color": "#111827",
+  "description": "A personal vault for accounts, files, notes, and GitHub repositories."
+}
