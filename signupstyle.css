@@ -111,3 +111,10 @@ body {
 .signup-container a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+    .signup-container input[type="password"] {
+        -webkit-text-security: disc;
+        text-security: disc;
+    }
+}
