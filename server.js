@@ -46,7 +46,11 @@ function serveFile(request, response) {
 
 const server = http.createServer((request, response) => {
     if (request.method === 'OPTIONS') {
-        response.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type' });
+        response.writeHead(204, {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS'
+        });
         response.end();
         return;
     }
@@ -62,15 +66,17 @@ const server = http.createServer((request, response) => {
                 sendJson(response, 400, { error: 'Invalid request.' });
                 return;
             }
-            const { email, password } = payload;
+            const { fullName, email, password, avatar } = payload;
+            const normalizedName = String(fullName || '').trim();
             const normalizedEmail = String(email || '').trim().toLowerCase();
             const users = readUsers();
-            if (!normalizedEmail || normalizedEmail === 'admin@gmail.com' || !password || users.some(user => user.email === normalizedEmail)) {
+            if (!normalizedName || !normalizedEmail || normalizedEmail === 'lumantajay70@gmail.com' || !password || users.some(user => user.email === normalizedEmail)) {
                 sendJson(response, 409, { error: 'This email is already registered or invalid.' });
                 return;
             }
             const salt = crypto.randomBytes(16).toString('hex');
-            users.push({ email: normalizedEmail, salt, passwordHash: hashPassword(password, salt) });
+            const safeAvatar = typeof avatar === 'string' && avatar.startsWith('data:image/') ? avatar : '';
+            users.push({ fullName: normalizedName, email: normalizedEmail, avatar: safeAvatar, salt, passwordHash: hashPassword(password, salt) });
             writeUsers(users);
             sendJson(response, 201, { ok: true });
         });
@@ -91,7 +97,7 @@ const server = http.createServer((request, response) => {
             const { email, password } = payload;
             const user = readUsers().find(item => item.email === String(email || '').trim().toLowerCase());
             const valid = user && hashPassword(password, user.salt) === user.passwordHash;
-            sendJson(response, valid ? 200 : 401, valid ? { ok: true, email: user.email } : { error: 'Invalid email or password.' });
+            sendJson(response, valid ? 200 : 401, valid ? { ok: true, email: user.email, fullName: user.fullName || user.email, avatar: user.avatar || '', role: user.role || 'user' } : { error: 'Invalid email or password.' });
         });
         return;
     }

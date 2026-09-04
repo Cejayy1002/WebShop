@@ -3,6 +3,7 @@ const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const message = document.getElementById('message');
 const errorMessage = document.getElementById('errorMessage');
+const apiBase = window.location.protocol === 'file:' ? 'http://192.168.1.3:3000' : '';
 
 document.querySelectorAll('.password-toggle').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -20,24 +21,9 @@ loginForm.addEventListener('submit', async function(event) {
     const email = usernameInput.value.trim().toLowerCase();
     const password = passwordInput.value;
 
-    // ADMIN LOGIN
-    if (email === 'admin@gmail.com' && password === 'admin123') {
-
-        localStorage.setItem('currentUser', email);
-        localStorage.setItem('userType', 'admin');
-
-        message.textContent = 'Admin login successful!';
-
-        setTimeout(function() {
-            window.location.href = 'home.html';
-        }, 500);
-
-        return;
-    }
-
-    if (window.location.protocol !== 'file:') {
+    if (apiBase || window.location.protocol !== 'file:') {
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch(`${apiBase}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -48,7 +34,9 @@ loginForm.addEventListener('submit', async function(event) {
                 return;
             }
             localStorage.setItem('currentUser', result.email);
-            localStorage.setItem('userType', 'user');
+            localStorage.setItem('userType', result.role || 'user');
+            localStorage.setItem('userName', result.fullName || result.email);
+            if (result.avatar) localStorage.setItem('userAvatar', result.avatar);
             message.textContent = 'Login successful!';
             setTimeout(function() { window.location.href = 'home.html'; }, 500);
         } catch {
@@ -70,6 +58,8 @@ loginForm.addEventListener('submit', async function(event) {
 
         localStorage.setItem('currentUser', account.email);
         localStorage.setItem('userType', 'user');
+        localStorage.setItem('userName', account.fullName || account.email);
+        if (account.avatar) localStorage.setItem('userAvatar', account.avatar);
 
         message.textContent = 'Login successful!';
 

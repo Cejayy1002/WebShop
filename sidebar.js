@@ -5,6 +5,16 @@
         return;
     }
 
+    const displayName = localStorage.getItem('userName') || 'Admin';
+    const userType = localStorage.getItem('userType') || 'user';
+    const avatar = localStorage.getItem('userAvatar');
+    const safeName = displayName.replace(/[&<>"']/g, function (character) {
+        return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[character];
+    });
+    const safeAvatar = avatar && avatar.startsWith('data:image/') ? avatar.replace(/"/g, '&quot;') : '';
+    const avatarMarkup = safeAvatar
+        ? `<img src="${safeAvatar}" alt="" class="user-img">`
+        : '';
     sidebar.className = 'sidebar';
     sidebar.innerHTML = `
         <div class="top">
@@ -18,10 +28,10 @@
                 <span class="nav-item">Dark mode</span>
             </button>
             <div class="user">
-                <img src="user-img.jpg" alt="Cadungog C." class="user-img">
+                ${avatarMarkup}
                 <div>
-                    <p class="bold">Cadungog C.</p>
-                    <p>Admin</p>
+                    <p class="bold">${safeName}</p>
+                    <p>${userType === 'admin' ? 'Admin' : 'User'}</p>
                 </div>
             </div>
             <ul>

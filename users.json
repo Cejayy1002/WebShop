@@ -1,5 +1,12 @@
 [
   {
+    "fullName": "Lumantajay",
+    "email": "lumantajay70@gmail.com",
+    "role": "admin",
+    "salt": "9e6773c0575d0eb3ae2cf4cc11949411",
+    "passwordHash": "2e142db2fb921a461a2c5d1597f0a31e07c8a60569c8246fb97c6848c3195762d7987ecbeae1eecb2c14ff3690bf7d5a422a62f2ff6f9c0d5d463e1a3eabcc4b"
+  },
+  {
     "email": "check@example.com",
     "salt": "e652214c582ee95956e0641054c7a6c1",
     "passwordHash": "1a14b7d5e928ed3597c09d4831beb9a18f42865fb747de5d0eb09e936e90393621ac85ef0b0442c279b0ee9de8b2d9aeb68590c2e0302fdf33a07d248a7a1c8d"
@@ -11,7 +18,21 @@
   },
   {
     "email": "cadungogcjay8@gmail.com",
+    "role": "User"
     "salt": "29e3c60e24e03f6f751da552b45af21b",
     "passwordHash": "267fff9755bf1cb5f2162d2480850737bf54d8dd5405f0e541d6dd3ea80a0f055621307036080aa2ace6eb7e2e1af969fb598e5418c4665ba7094549cd4c16e6"
+  },
+  {
+    "fullName": "C-Jay",
+    "email": "solcodm33@gmail.com",
+    "salt": "60adb2efd943af575613b4afb1fe0627",
+    "passwordHash": "dd33d1715f926ee4984ce960f27965b80434bba9edfd8944de085005217cf3d711672130b1cf8a402712320168b58befc1fe7ef894582024b6edecd4c9ae34bd"
+  },
+  {
+    "fullName": "Avatar User",
+    "email": "avatar-check-639241658067763025@example.com",
+    "avatar": "data:image/png;base64,AAAA",
+    "salt": "4de7890b0c33f24a766528be0578ea0a",
+    "passwordHash": "e2136cee3917410910463e4363273b46fe05055fca0f54f77d80d3dad9528c57daaa816bbbe9dc08f871f28888a47a6641799e041cd2fe7b85e8eb39c17cbc55"
   }
 ]

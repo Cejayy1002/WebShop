@@ -1,6 +1,8 @@
 function LogoutBtn() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('userType');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userAvatar');
     sessionStorage.removeItem('currentUser');
     sessionStorage.removeItem('userType');
     window.location.replace('login.html');

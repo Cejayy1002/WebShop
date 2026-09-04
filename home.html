@@ -14,7 +14,7 @@
         <div class="dashboard-header">
             <div>
                 <p class="eyebrow">PERSONAL VAULT</p>
-                <h1>Welcome back, Cadungog</h1>
+                <h1 id="welcomeHeading">Welcome back</h1>
                 <p class="welcome-text">Manage your store quickly from one place.</p>
             </div>
         </div>
@@ -27,5 +27,9 @@
     </main>
     <script src="sidebar.js"></script>
     <script src="logout.js"></script>
+    <script>
+        const userName = localStorage.getItem('userName');
+        if (userName) document.getElementById('welcomeHeading').textContent = `Welcome back, ${userName}`;
+    </script>
 </body>
 </html> 

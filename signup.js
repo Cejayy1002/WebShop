@@ -1,4 +1,5 @@
 const signupForm = document.getElementById('signupForm');
+const apiBase = window.location.protocol === 'file:' ? 'http://192.168.1.3:3000' : '';
 
 document.querySelectorAll('.password-toggle').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -14,8 +15,10 @@ signupForm.addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const email = document.getElementById('newEmail').value.trim().toLowerCase();
+    const fullName = document.getElementById('fullName').value.trim();
     const password = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+    const avatarFile = document.getElementById('avatar').files[0];
     const message = document.getElementById('message');
 
     // Check if passwords match
@@ -24,12 +27,19 @@ signupForm.addEventListener('submit', async function(event) {
         return;
     }
 
-    if (window.location.protocol !== 'file:') {
+    const avatar = avatarFile ? await new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+        reader.addEventListener('load', function () { resolve(reader.result); });
+        reader.addEventListener('error', reject);
+        reader.readAsDataURL(avatarFile);
+    }) : '';
+
+    if (apiBase || window.location.protocol !== 'file:') {
         try {
-            const response = await fetch('/api/register', {
+            const response = await fetch(`${apiBase}/api/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ fullName, email, password, avatar })
             });
             const result = await response.json();
             if (!response.ok) {
@@ -49,7 +59,7 @@ signupForm.addEventListener('submit', async function(event) {
     let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
 
     // Prevent someone from creating the admin email
-    if (email === 'admin@gmail.com') {
+    if (email === 'lumantajay70@gmail.com') {
         message.textContent = 'This email cannot be registered.';
         return;
     }
@@ -67,7 +77,9 @@ signupForm.addEventListener('submit', async function(event) {
     // Create account
     const newAccount = {
         email: email,
-        password: password
+        fullName: fullName,
+        password: password,
+        avatar: avatar
     };
 
     accounts.push(newAccount);
