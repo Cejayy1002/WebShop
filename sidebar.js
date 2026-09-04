@@ -56,9 +56,9 @@
                 <li>
                     <a href="savings.html" data-page="savings.html">
                         <i class="bx bx-pie-chart-alt-2"></i>
-                        <span class="nav-item">Savings</span>
+                        <span class="nav-item">GitHub</span>
                     </a>
-                    <span class="tooltip">Savings</span>
+                    <span class="tooltip">GitHub</span>
                 </li>
                 <li>
                     <a href="#" id="logoutBtn">

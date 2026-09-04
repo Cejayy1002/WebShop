@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savings</title>
+    <title>GitHub</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="homestyle.css">
 </head>
@@ -11,29 +11,22 @@
     <aside id="sidebar"></aside>
     <main class="main-content dashboard-content settings-content">
         <div class="dashboard-header">
-            <div><p class="eyebrow">FINANCIAL GOALS</p><h1>Savings</h1><p class="welcome-text">Track your savings goals and progress.</p></div>
+            <div><p class="eyebrow">DEVELOPMENT</p><h1>GitHub</h1><p class="welcome-text">Save and organize your GitHub repositories.</p></div>
+            <button class="action-button" id="showRepositoryForm" type="button"><i class="bx bx-plus"></i> Add repository</button>
         </div>
-        <form id="settingsForm" class="settings-grid">
-            <section class="panel settings-card">
-                <div class="panel-heading"><div><h2>Savings goal</h2><p>Set the amount you want to save.</p></div><i class="bx bx-target-lock panel-icon"></i></div>
-                <label for="adminName">Goal name</label>
-                <input id="adminName" type="text" value="My savings goal">
-                <label for="adminEmail">Target amount</label>
-                <input id="adminEmail" type="number" min="0" step="0.01" value="0">
-                <label for="storeName">Current savings</label>
-                <input id="storeName" type="number" min="0" step="0.01" value="0">
-            </section>
-            <section class="panel settings-card">
-                <div class="panel-heading"><div><h2>Savings notes</h2><p>Add a reminder for your goal.</p></div><i class="bx bx-note panel-icon"></i></div>
-                <label for="newPassword">Savings note</label>
-                <input id="newPassword" type="text" placeholder="e.g. Save every payday">
-                <label for="confirmPassword">Deadline</label>
-                <input id="confirmPassword" type="date">
-                <label class="checkbox-row"><input id="orderNotifications" type="checkbox" checked> Remind me about my goal</label>
-                <label class="checkbox-row"><input id="stockNotifications" type="checkbox"> Show progress updates</label>
-            </section>
-            <div class="settings-actions"><span id="settingsMessage" role="status"></span><button class="action-button" type="submit">Save savings</button></div>
-        </form>
+        <section class="panel form-panel" id="repositoryFormPanel" hidden>
+            <div class="panel-heading"><div><h2>Link a repository</h2><p>Save GitHub repository links in this browser.</p></div></div>
+            <form id="repositoryForm" class="inline-form">
+                <input id="repositoryName" required placeholder="Repository name" aria-label="Repository name">
+                <input id="repositoryUrl" required type="url" placeholder="https://github.com/user/repository" aria-label="GitHub repository URL">
+                <button class="action-button" type="submit">Save repository</button>
+            </form>
+            <p id="repositoryMessage" role="status"></p>
+        </section>
+        <section class="panel">
+            <div class="panel-heading"><div><h2>Saved repositories</h2><p id="repositoryCount">0 repositories</p></div><i class="bx bxl-github panel-icon"></i></div>
+            <div id="repositoryList" class="data-list"><p class="empty-state">No repositories saved yet.</p></div>
+        </section>
     </main>
     <script src="sidebar.js"></script>
     <script src="logout.js"></script>

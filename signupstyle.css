@@ -55,6 +55,9 @@ body {
     outline: none;
     transition: 0.3s;
 }
+.password-input { position: relative; margin-bottom: 20px; }
+.password-input input { margin-bottom: 0; padding-right: 42px; }
+.password-toggle { position: absolute; top: 50%; right: 8px; width: 32px !important; padding: 0 !important; transform: translateY(-50%); background: transparent !important; color: #b0b3c1 !important; border: 0 !important; }
 
 /* Input hover */
 .signup-container input:hover {

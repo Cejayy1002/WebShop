@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -27,12 +28,15 @@
 
             <div class="form-group">
                 <label for="password">Password:</label>
+                <div class="password-input">
                 <input 
                     type="password" 
                     id="password" 
                     name="password" 
                     placeholder="Enter your password" 
                     required>
+                    <button class="password-toggle" type="button" data-target="password" aria-label="Show password"><i class="bx bx-show"></i></button>
+                </div>
             </div>
 
             <p id="message"></p>

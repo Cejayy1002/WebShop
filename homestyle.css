@@ -334,6 +334,7 @@ margin: 1rem;
 }
 
 .quick-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.home-tools { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 .quick-action {
     display: flex;
@@ -366,6 +367,12 @@ margin: 1rem;
 .summary-list div { display: flex; justify-content: space-between; padding: 0.7rem 0; border-bottom: 1px solid #eef1f5; color: #64748b; }
 .summary-list div:last-child { border-bottom: 0; }
 .summary-list strong { color: #12171e; }
+.note-row { align-items: center; }
+.note-row strong, .note-row span { display: block; }
+.note-row span { color: #64748b; font-size: 0.78rem; margin-top: 0.2rem; }
+.note-actions { display: flex; align-items: center; gap: 0.5rem; }
+.delete-button { color: #c24141; }
+.note-preview { padding: 0.75rem 0; color: #64748b; white-space: pre-wrap; }
 .settings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .settings-card { display: flex; flex-direction: column; gap: 0.5rem; }
 .settings-card .panel-heading { margin-bottom: 0.5rem; }
@@ -488,24 +495,27 @@ body.dark-mode .chart-bars .current-bar { background: #f8fafc; }
         width: 100%;
         height: 100%;
         margin: 0;
-        padding: 0;
+        padding: 0 4px 0 58px;
         align-items: stretch;
-        justify-content: space-around;
+        justify-content: space-between;
         gap: 0;
     }
 
     .sidebar ul li {
         flex: 1 1 0;
+        min-width: 0;
         width: auto;
         height: 100%;
         margin: 0;
         line-height: normal;
+        overflow: hidden;
     }
 
     .sidebar ul li a,
     .sidebar ul li a.active {
         height: 100%;
         min-width: 0;
+        width: 100%;
         padding: 6px 2px;
         border-radius: 0;
         flex-direction: column;
@@ -515,13 +525,15 @@ body.dark-mode .chart-bars .current-bar { background: #f8fafc; }
 
     .sidebar .theme-toggle,
     .sidebar.active .theme-toggle {
-        position: fixed;
-        top: auto;
-        left: 0.75rem;
+        position: absolute;
+        top: 50%;
+        left: 0.5rem;
         right: auto;
-        bottom: 5.25rem;
+        bottom: auto;
+        transform: translateY(-50%);
         z-index: 1001;
         width: 2.75rem;
+        min-width: 2.75rem;
         height: 2.75rem;
         padding: 0;
         border-radius: 50%;
