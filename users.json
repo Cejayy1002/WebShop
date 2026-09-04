@@ -18,7 +18,7 @@
   },
   {
     "email": "cadungogcjay8@gmail.com",
-    "role": "User"
+    "role": "User",
     "salt": "29e3c60e24e03f6f751da552b45af21b",
     "passwordHash": "267fff9755bf1cb5f2162d2480850737bf54d8dd5405f0e541d6dd3ea80a0f055621307036080aa2ace6eb7e2e1af969fb598e5418c4665ba7094549cd4c16e6"
   },
