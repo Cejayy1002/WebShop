@@ -31,6 +31,25 @@ function sendJson(response, status, body) {
     response.end(JSON.stringify(body));
 }
 
+function readJsonBody(request) {
+    return new Promise((resolve, reject) => {
+        let body = '';
+        request.on('data', chunk => { body += chunk; });
+        request.on('end', () => {
+            if (!body) {
+                resolve({});
+                return;
+            }
+            try {
+                resolve(JSON.parse(body));
+            } catch (error) {
+                reject(new Error('Invalid JSON body.'));
+            }
+        });
+        request.on('error', () => reject(new Error('Request body read failed.')));
+    });
+}
+
 function serveFile(request, response) {
     const requested = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
     const filePath = path.resolve(root, `.${requested === '/' ? '/index.html' : requested}`);
@@ -52,33 +71,31 @@ const server = http.createServer((request, response) => {
     }
 
     if (request.url === '/api/register' && request.method === 'POST') {
-        let body = '';
-        request.on('data', chunk => { body += chunk; });
-        request.on('end', () => {
-            const { email, password } = JSON.parse(body);
-            const normalizedEmail = String(email || '').trim().toLowerCase();
-            const users = readUsers();
-            if (!normalizedEmail || !password || users.some(user => user.email === normalizedEmail)) {
-                sendJson(response, 409, { error: 'This email is already registered or invalid.' });
-                return;
-            }
-            const salt = crypto.randomBytes(16).toString('hex');
-            users.push({ email: normalizedEmail, salt, passwordHash: hashPassword(password, salt) });
-            writeUsers(users);
-            sendJson(response, 201, { ok: true });
-        });
+        readJsonBody(request)
+            .then(({ email, password }) => {
+                const normalizedEmail = String(email || '').trim().toLowerCase();
+                const users = readUsers();
+                if (!normalizedEmail || !password || users.some(user => user.email === normalizedEmail)) {
+                    sendJson(response, 409, { error: 'This email is already registered or invalid.' });
+                    return;
+                }
+                const salt = crypto.randomBytes(16).toString('hex');
+                users.push({ email: normalizedEmail, salt, passwordHash: hashPassword(password, salt) });
+                writeUsers(users);
+                sendJson(response, 201, { ok: true });
+            })
+            .catch(() => sendJson(response, 400, { error: 'Invalid request body.' }));
         return;
     }
 
     if (request.url === '/api/login' && request.method === 'POST') {
-        let body = '';
-        request.on('data', chunk => { body += chunk; });
-        request.on('end', () => {
-            const { email, password } = JSON.parse(body);
-            const user = readUsers().find(item => item.email === String(email || '').trim().toLowerCase());
-            const valid = user && hashPassword(password, user.salt) === user.passwordHash;
-            sendJson(response, valid ? 200 : 401, valid ? { ok: true, email: user.email } : { error: 'Invalid email or password.' });
-        });
+        readJsonBody(request)
+            .then(({ email, password }) => {
+                const user = readUsers().find(item => item.email === String(email || '').trim().toLowerCase());
+                const valid = user && hashPassword(password, user.salt) === user.passwordHash;
+                sendJson(response, valid ? 200 : 401, valid ? { ok: true, email: user.email } : { error: 'Invalid email or password.' });
+            })
+            .catch(() => sendJson(response, 400, { error: 'Invalid request body.' }));
         return;
     }
 
