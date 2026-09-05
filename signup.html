@@ -4,14 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
-    <link rel="stylesheet" href="signupstyle.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="signup-container">
+<body class="auth-page signup-page">
+    <div class="login-container">
+        <div class="auth-brand" aria-label="Personal Vault">
+            <span class="auth-brand-icon"><i class="bx bx-lock-alt"></i></span>
+            <span>Personal Vault</span>
+        </div>
         <h1>Create Account</h1>
+        <p class="auth-subtitle">Create a secure account for your personal vault.</p>
 
         <form id="signupForm">
+
+            <div class="form-group">
+                <label for="firstName">First name:</label>
+                <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="Enter your first name"
+                    autocomplete="given-name"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last name:</label>
+                <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Enter your last name"
+                    autocomplete="family-name"
+                    required>
+            </div>
 
             <div class="form-group">
                 <label for="newEmail">Email:</label>
@@ -19,7 +46,8 @@
                     type="email" 
                     id="newEmail" 
                     name="newEmail" 
-                    placeholder="Enter your email" 
+                    placeholder="Enter your email"
+                    autocomplete="email"
                     required>
             </div>
 
@@ -30,7 +58,8 @@
                     type="password" 
                     id="newPassword" 
                     name="newPassword" 
-                    placeholder="Enter your password" 
+                    placeholder="Enter your password"
+                    autocomplete="new-password"
                     required>
                     <button class="password-toggle" type="button" data-target="newPassword" aria-label="Show password"><i class="bx bx-show"></i></button>
                 </div>
@@ -43,17 +72,20 @@
                     type="password" 
                     id="confirmPassword" 
                     name="confirmPassword" 
-                    placeholder="Confirm your password" 
+                    placeholder="Confirm your password"
+                    autocomplete="new-password"
                     required>
                     <button class="password-toggle" type="button" data-target="confirmPassword" aria-label="Show password"><i class="bx bx-show"></i></button>
                 </div>
             </div>
 
-            <p id="message"></p>
-            <p id="errorMessage"></p>
+            <div class="auth-status" aria-live="polite">
+                <p id="message"></p>
+                <p id="errorMessage"></p>
+            </div>
 
-            <button type="submit">Sign Up</button>
-            <p>Already have an account? <a href="login.html">Login</a></p>
+            <button class="auth-submit" type="submit"><span>Sign Up</span><i class="bx bx-user-plus"></i></button>
+            <p class="auth-switch">Already have an account? <a href="login.html">Login</a></p>
 
         </form>
     </div>

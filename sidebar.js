@@ -6,6 +6,23 @@
     }
 
     sidebar.className = 'sidebar';
+    const currentUser = localStorage.getItem('currentUser') || '';
+    const isAdmin = localStorage.getItem('userType') === 'admin';
+    const profiles = JSON.parse(localStorage.getItem('userProfiles') || '{}');
+    const profile = profiles[currentUser] || {};
+    const displayName = isAdmin
+        ? 'Cadungog C.'
+        : (profile.firstName && profile.lastName
+            ? `${profile.lastName}, ${profile.firstName}`
+            : (profile.name || currentUser.split('@')[0] || 'User'));
+    const displayRole = isAdmin ? 'Admin' : 'User';
+    const profileImage = isAdmin ? 'user-img.jpg' : (profile.image || 'user-img.jpg');
+    const escapeHtml = function (value) {
+        return String(value).replace(/[&<>"']/g, function (character) {
+            return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[character];
+        });
+    };
+
     sidebar.innerHTML = `
         <div class="top">
             <div class="logo">
@@ -18,10 +35,13 @@
                 <span class="nav-item">Dark mode</span>
             </button>
             <div class="user">
-                <img src="user-img.jpg" alt="Cadungog C." class="user-img">
+                <label class="profile-image-control" title="${isAdmin ? 'Admin profile picture' : 'Change profile picture'}">
+                    <img src="${escapeHtml(profileImage)}" alt="${escapeHtml(displayName)}" class="user-img">
+                    ${isAdmin ? '' : '<input type="file" id="profileImageInput" accept="image/*">'}
+                </label>
                 <div>
-                    <p class="bold">Cadungog C.</p>
-                    <p>Admin</p>
+                    <p class="bold">${escapeHtml(displayName)}</p>
+                    <p>${escapeHtml(displayRole)}</p>
                 </div>
             </div>
             <ul>
@@ -70,6 +90,34 @@
             </ul>
         </div>
     `;
+
+    if (!isAdmin) {
+        const profileImageInput = document.getElementById('profileImageInput');
+        profileImageInput.addEventListener('change', function () {
+            const file = profileImageInput.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.addEventListener('load', function () {
+                profiles[currentUser] = Object.assign({}, profiles[currentUser], {
+                    image: reader.result
+                });
+                try {
+                    localStorage.setItem('userProfiles', JSON.stringify(profiles));
+                    sidebar.querySelector('.user-img').src = reader.result;
+                } catch (error) {
+                    window.alert('This image is too large to save in browser storage.');
+                }
+            });
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const welcomeHeading = document.getElementById('welcomeHeading');
+    if (welcomeHeading) {
+        welcomeHeading.textContent = `Welcome back, ${displayName}`;
+    }
 
     const toggleButton = document.getElementById('btn');
     toggleButton.addEventListener('click', function () {

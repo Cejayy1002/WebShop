@@ -10,42 +10,35 @@ document.querySelectorAll('.password-toggle').forEach(function (button) {
     });
 });
 
-signupForm.addEventListener('submit', async function(event) {
+signupForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const email = document.getElementById('newEmail').value;
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('newEmail').value.trim().toLowerCase();
     const password = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const message = document.getElementById('message');
+    const errorMessage = document.getElementById('errorMessage');
+    message.textContent = '';
+    errorMessage.textContent = '';
+
+    if (!firstName || !lastName) {
+        errorMessage.textContent = 'Please enter your first and last name.';
+        return;
+    }
 
     // Check if passwords match
     if (password !== confirmPassword) {
-        message.textContent = 'Passwords do not match.';
+        errorMessage.textContent = 'Passwords do not match.';
         return;
     }
 
-    if (window.location.protocol !== 'file:') {
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        const result = await response.json();
-        if (!response.ok) {
-            message.textContent = result.error;
-            return;
-        }
-        message.textContent = 'Account created successfully!';
-        setTimeout(function() { window.location.href = 'login.html'; }, 1000);
-        return;
-    }
-
-    // Offline fallback for direct file access.
     let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
 
     // Prevent someone from creating the admin email
     if (email === 'admin@gmail.com') {
-        message.textContent = 'This email cannot be registered.';
+        errorMessage.textContent = 'This email cannot be registered.';
         return;
     }
 
@@ -55,7 +48,7 @@ signupForm.addEventListener('submit', async function(event) {
     });
 
     if (existingAccount) {
-        message.textContent = 'This email is already registered.';
+        errorMessage.textContent = 'This email is already registered.';
         return;
     }
 
@@ -69,6 +62,13 @@ signupForm.addEventListener('submit', async function(event) {
 
     // Save account
     localStorage.setItem('accounts', JSON.stringify(accounts));
+    const profiles = JSON.parse(localStorage.getItem('userProfiles') || '{}');
+    profiles[email] = {
+        firstName: firstName,
+        lastName: lastName,
+        image: ''
+    };
+    localStorage.setItem('userProfiles', JSON.stringify(profiles));
 
     message.textContent = 'Account created successfully!';
 

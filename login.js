@@ -14,11 +14,13 @@ document.querySelectorAll('.password-toggle').forEach(function (button) {
     });
 });
 
-loginForm.addEventListener('submit', async function(event) {
+loginForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const email = usernameInput.value;
+    const email = usernameInput.value.trim().toLowerCase();
     const password = passwordInput.value;
+    message.textContent = '';
+    errorMessage.textContent = '';
 
     // ADMIN LOGIN
     if (email === 'admin@gmail.com' && password === 'admin123') {
@@ -35,29 +37,10 @@ loginForm.addEventListener('submit', async function(event) {
         return;
     }
 
-    if (window.location.protocol !== 'file:') {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        const result = await response.json();
-        if (!response.ok) {
-            errorMessage.textContent = result.error;
-            return;
-        }
-        localStorage.setItem('currentUser', result.email);
-        localStorage.setItem('userType', 'user');
-        message.textContent = 'Login successful!';
-        setTimeout(function() { window.location.href = 'home.html'; }, 500);
-        return;
-    }
-
-    // Offline fallback for direct file access.
     const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
 
     const account = accounts.find(function(account) {
-        return account.email === email &&
+        return account.email.toLowerCase() === email &&
         account.password === password;
     });
 

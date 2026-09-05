@@ -11,6 +11,28 @@
     border: 1px solid #eee;
 }
 
+.profile-image-control {
+    position: relative;
+    display: block;
+    line-height: 0;
+}
+
+.profile-image-control input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.profile-image-control:not(:has(input)) .user-img {
+    cursor: default;
+}
+
+.profile-image-control:has(input) .user-img {
+    cursor: pointer;
+}
+
 .sidebar {
     position: absolute;
     top: 0;
